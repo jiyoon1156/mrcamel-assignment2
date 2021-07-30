@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
+import ProductList from 'components/ProductList';
 
-class Main extends React.Component {
+const API = 'data/data.json';
+class Main extends Component {
+  constructor() {
+    super();
+    this.state = { data: [] };
+  }
+
+  async componentDidMount() {
+    const response = await fetch(API);
+    const json = await response.json();
+    this.setState({ data: json });
+  }
+
   render() {
-    return <div>Main</div>;
+    const { data } = this.state;
+    return <ProductList data={data} />;
   }
 }
 
