@@ -7,29 +7,32 @@ import Product from 'pages/Product';
 import RecentList from 'pages/RecentList/RecentList';
 import GlobalNavbar from 'components/GlobalNavbar';
 import GlobalStyles from 'styles/GlobalStyles';
+import Theme from 'styles/Theme';
 
-class App extends React.Component {
-  render() {
-    return (
+function App() {
+  return (
+    <>
       <Router>
-        <div>
+        <Theme>
           <GlobalStyles />
           <GlobalNavbar />
-          <Switch>
-            <Route path="/product">
-              <Product />
-            </Route>
-            <Route path="/recentList">
-              <RecentList />
-            </Route>
-            <Route path="/">
-              <Main />
-            </Route>
-          </Switch>
-        </div>
+          <div>
+            <Switch>
+              <Route path="/product">
+                <Product />
+              </Route>
+              <Route path="/recentList">
+                <RecentList />
+              </Route>
+              <Route path="/">
+                <Main />
+              </Route>
+            </Switch>
+          </div>
+        </Theme>
       </Router>
-    );
-  }
+    </>
+  );
 }
 
 export default App;

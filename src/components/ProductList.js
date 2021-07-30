@@ -1,28 +1,16 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
-
-const API = 'data/data.json';
+import { Link } from 'react-router-dom';
 
 class ProductList extends React.Component {
-  constructor() {
-    super();
-    this.state = { data: [] };
-  }
-
-  async componentDidMount() {
-    const response = await fetch(API);
-    const json = await response.json();
-    this.setState({ data: json });
-  }
-
   render() {
-    const { data } = this.state;
+    const { data } = this.props;
     return (
       <StyledShop>
-        {data.map((item) => (
-          <StyledProducts>
-            <StyledTitle key={item.title}>{item.title}</StyledTitle>
+        {data.map((item, index) => (
+          <StyledProducts key={item.title} to={{ pathname: '/product', state: { item: index } }}>
+            <StyledTitle>{item.title}</StyledTitle>
           </StyledProducts>
         ))}
       </StyledShop>
@@ -33,21 +21,17 @@ class ProductList extends React.Component {
 const StyledShop = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  box-sizing: border-box;
 `;
 
-const StyledProducts = styled.li`
-  width: 15%;
+const StyledProducts = styled(Link)`
+  width: 20%;
   height: 15rem;
-  background: #efeded;
-  border-radius: 20px;
-  margin: 1rem;
+  background: ${({ theme }) => theme.color.secondary};
+  box-shadow: 0 0 0 1px ${({ theme }) => theme.color.light} inset;
   &:hover {
     cursor: pointer;
-    background: blue;
+    background: ${({ theme }) => theme.color.primary};
+    color: ${({ theme }) => theme.color.light};
   }
 `;
 
@@ -56,7 +40,6 @@ const StyledTitle = styled.div`
   font-size: 15px;
   line-height: 30px;
   padding: 1rem;
-  box-sizing: border-box;
 `;
 
 export default ProductList;
