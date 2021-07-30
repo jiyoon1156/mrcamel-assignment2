@@ -9,7 +9,7 @@ class ProductList extends React.Component {
     return (
       <StyledShop>
         {data.map((item, index) => (
-          <StyledProducts key={item.title} to={{ pathname: '/product', state: { item: index } }}>
+          <StyledProducts key={item.title} to={`/product?index=${index}`}>
             <StyledTitle>{item.title}</StyledTitle>
           </StyledProducts>
         ))}
