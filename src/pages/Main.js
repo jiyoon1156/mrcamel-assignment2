@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
+import ProductList from 'components/ProductList';
 
-class Main extends React.Component {
+class Main extends Component {
   render() {
-    return <div>Main</div>;
+    return (
+      <div>
+        <ProductList />
+      </div>
+    );
   }
 }
 
