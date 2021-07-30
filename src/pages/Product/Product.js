@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import qs from 'qs';
 
+import Storage from 'utils/Storage';
+
 const DATA_JSON_API = 'data/data.json';
 const PLACEHOLDER_POST_API = 'https://jsonplaceholder.typicode.com/posts/';
 
@@ -16,13 +18,28 @@ class Product extends React.Component {
       ignoreQueryPrefix: true,
     });
 
+    // product 데이터 받아와서 저장
     const responseData = await fetch(DATA_JSON_API);
     const jsonData = await responseData.json();
     this.setState({ products: jsonData });
 
+    // 상품 설명용 placeholder 데이터 받아와서 저장
     const responsePlaceholderPost = await fetch(`${PLACEHOLDER_POST_API}${Number(index) + 1}`);
     const jsonPlaceholderPost = await responsePlaceholderPost.json();
     this.setState({ dummyDescription: jsonPlaceholderPost?.body });
+
+    const recentList = Storage.get('recentList') ? Storage.get('recentList') : [];
+
+    // 이미 본 상품 또 클릭했을 경우
+    if (recentList.indexOf(Number(index)) > -1) {
+      const alreadyExistingIndex = recentList.indexOf(Number(index));
+      const clickedProduct = recentList[alreadyExistingIndex];
+      recentList.splice(alreadyExistingIndex, 1);
+
+      recentList.unshift(clickedProduct);
+    } else recentList.unshift(Number(index));
+
+    Storage.set('recentList', recentList);
   }
 
   render() {
