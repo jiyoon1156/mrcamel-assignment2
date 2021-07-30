@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Main from 'pages/Main';
 import Product from 'pages/Product';
-import RecentList from 'pages/RecentList';
+import RecentList from 'pages/RecentList/RecentList';
 
 function App() {
   return (
