@@ -4,11 +4,15 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Main from 'pages/Main';
 import Product from 'pages/Product';
 import RecentList from 'pages/RecentList';
+import GlobalNavbar from 'components/GlobalNavbar';
+import GlobalStyles from 'styles/GlobalStyles';
 
 function App() {
   return (
     <Router>
       <div>
+        <GlobalStyles />
+        <GlobalNavbar />
         <Switch>
           <Route path="/product">
             <Product />
