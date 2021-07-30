@@ -1,13 +1,14 @@
 import React from 'react';
 import Button from 'components/Button';
 
-function RecentList() {
-  return (
-    <div>
-      RecentList
-      <Button />
-    </div>
-  );
+class RecentList extends React.Component {
+  render() {
+    return (
+      <div>
+        RecentList
+        <Button />
+      </div>
+    );
+  }
 }
-
 export default RecentList;
