@@ -1,6 +1,5 @@
 /* eslint-disable */
 import React, { Component } from 'react';
-
 import styled from 'styled-components';
 
 import FilterBar from 'pages/RecentList/FilterBar/FilterBar';
@@ -23,7 +22,7 @@ class RecentList extends Component {
 
   componentDidMount() {
     const inquireList = Storage.get('recentList') || [];
-    const notInterestList = [1, 2];
+    const notInterestList = Storage.get('noInterest') || [];
 
     fetch('data/data.json')
       .then((res) => res.json())
@@ -72,12 +71,23 @@ class RecentList extends Component {
           onNotInterestClick={this.onNotInterestClick}
           sortByFilter={this.sortByFilter}
         />
+        <Title>상품 조회 리스트</Title>
         <ProductList inquireData={inquireData} notInterestChecked={notInterestChecked} />
       </Container>
     );
   }
 }
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Title = styled.div`
+  align-self: center;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 30px;
+`;
 
 export default RecentList;
