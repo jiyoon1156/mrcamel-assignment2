@@ -7,27 +7,20 @@ import styled from 'styled-components';
 
 class FilterBar extends Component {
   render() {
-    const {
-      inquireData,
-      onNotInterestClick,
-      sortByFilter,
-      brandFilterList,
-      selectedBrand,
-      selectBrand,
-      isDroped,
-      handleDrop,
-    } = this.props;
+    const { onNotInterestClick, sortByFilter, brandFilterList, selectedBrand, selectBrand, isDroped, handleDrop } =
+      this.props;
     return (
       <FilterContainer>
-        <BrandFilter
-          inquireData={inquireData}
-          brandFilterList={brandFilterList}
-          selectedBrand={selectedBrand}
-          selectBrand={selectBrand}
-          isDroped={isDroped}
-          handleDrop={handleDrop}
-        />
-        <NotInterestFilter onNotInterestClick={onNotInterestClick} />
+        <SmallContainer>
+          <BrandFilter
+            brandFilterList={brandFilterList}
+            selectedBrand={selectedBrand}
+            selectBrand={selectBrand}
+            isDroped={isDroped}
+            handleDrop={handleDrop}
+          />
+          <NotInterestFilter onNotInterestClick={onNotInterestClick} />
+        </SmallContainer>
         <SortingFilter sortByFilter={sortByFilter} />
       </FilterContainer>
     );
@@ -35,18 +28,21 @@ class FilterBar extends Component {
 }
 
 const FilterContainer = styled.div`
-  align-items: center;
-  align-self: center;
-  border: 2px solid #dcdcdc;
-  border-radius: 5px;
   display: flex;
-  justify-content: space-around;
-  margin: 40px 0 5px 0;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
   padding: 16px 0;
+  background-color: #ededed;
+  /* box-shadow: 0 5px 10px 0 rgb(0 0 0 / 10%); */
 
   & > :nth-child(2n - 1) {
     margin: 0 40px;
   }
+`;
+
+const SmallContainer = styled.div`
+  display: flex;
 `;
 
 export default FilterBar;

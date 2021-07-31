@@ -8,7 +8,7 @@ class NotInterestFilter extends Component {
 
     return (
       <Label htmlFor="notInterest">
-        관심없는 상품 제외
+        <h3>관심없는 상품 제외</h3>
         <Input id="notInterest" type="checkbox" onChange={onNotInterestClick} />
         <Span />
       </Label>
@@ -20,9 +20,15 @@ const Label = styled.label`
   cursor: pointer;
   display: block;
   position: relative;
-  padding: 0 28px 0 56px;
+  padding: 12px 28px 0 56px;
   user-select: none;
   white-space: nowrap;
+
+  h3 {
+    margin-right: 3px;
+    color: #333333;
+    font-size: 15px;
+  }
 
   &:hover > span {
     border-color: #808080;
@@ -59,6 +65,7 @@ const Span = styled.span`
   top: 50%;
   transform: translateY(-50%);
   width: 24px;
+  background-color: #fff;
 
   &:after {
     border: solid #a9a9a9;

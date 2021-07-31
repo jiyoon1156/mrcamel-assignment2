@@ -12,7 +12,7 @@ class RecentList extends Component {
     super();
 
     this.state = {
-      inquireData: [],
+      inquireData: null,
       notInterestChecked: false,
       brandFilterList: [],
       selectedBrand: [],
@@ -68,6 +68,9 @@ class RecentList extends Component {
 
   sortByFilter(sortingBoxIndex) {
     const { inquireData } = this.state;
+
+    if (!inquireData) return;
+
     const filterMethods = ['order', 'price'];
     const sortKey = filterMethods[sortingBoxIndex];
     const sortedData = inquireData.slice().sort((a, b) => a[sortKey] - b[sortKey]);
@@ -96,7 +99,6 @@ class RecentList extends Component {
     return (
       <Container>
         <FilterBar
-          inquireData={inquireData}
           brandFilterList={brandFilterList}
           selectedBrand={selectedBrand}
           selectBrand={this.selectBrand}
@@ -129,27 +131,26 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const BrandContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`;
+const BrandContainer = styled.div``;
 
 const BrandBox = styled.div`
-  width: 640px;
-  border-radius: 5px;
-  border: 2px solid #dcdcdc;
+  padding-left: 20px;
 `;
 
 const BrandBtn = styled.button`
   margin: 2px 10px;
   padding: 10px 10px;
   border-radius: 4px;
-  background-color: #3ae374;
+  background-color: ${({ theme }) => theme.color.primary};
   color: #fff;
-  box-shadow: 0 0.125rem 0.625rem rgb(58 196 125 / 40%), 0 0.0625rem 0.125rem rgb(58 196 125 / 50%);
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 0.125rem 0.625rem rgb(31 41 240 / 40%), 0 0.0625rem 0.125rem rgb(31 41 240 / 50%);
+  user-select: none;
 
   &:hover {
-    background-color: #32ff7e;
+    opacity: 0.7;
+    cursor: pointer;
   }
 `;
 
@@ -158,6 +159,7 @@ const Title = styled.div`
   font-size: 24px;
   font-weight: 600;
   margin-bottom: 30px;
+  user-select: none;
 `;
 
 export default RecentList;

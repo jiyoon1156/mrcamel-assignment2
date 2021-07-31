@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import ProductList from 'components/ProductList';
 
 const API = 'data/data.json';
+
 class Main extends Component {
   constructor() {
     super();
-    this.state = { data: [] };
+
+    this.state = {
+      data: null,
+    };
   }
 
   async componentDidMount() {
