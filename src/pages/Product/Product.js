@@ -26,7 +26,6 @@ class Product extends React.Component {
   }
 
   async componentDidMount() {
-    // console.log('componentDidMount');
     const { index } = qs.parse(this.props.location.search, {
       ignoreQueryPrefix: true,
     });
@@ -65,7 +64,6 @@ class Product extends React.Component {
       this.saveForRecentList(index);
       this.saveTimeOfStorage();
     }
-    // console.log(`prev index : ${index}`);
   }
 
   saveTimeOfStorage() {
@@ -123,14 +121,12 @@ class Product extends React.Component {
     // 관심 없는 상품 제외하고 랜덤 라우팅
     const productsExceptNoInterest = [...Array(100).keys()].filter((elem) => noInterestList.indexOf(elem) === -1);
     const randomIndex = Math.floor(Math.random() * productsExceptNoInterest.length);
-    // console.log('-----------');
-    // console.log(`randomIndex : ${randomIndex}`);
-    // console.log(productsExceptNoInterest);
+
     // 다른 상품 페이지로 라우팅되면 이미지를 바꾸어주기 위함
 
     if (productsExceptNoInterest.length > 0) {
       this.setState({ imageUrlQueryNumber: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER) });
-      // console.log(`random product : ${productsExceptNoInterest[randomIndex]}`);
+
       history.replace(`/product?index=${productsExceptNoInterest[randomIndex]}`);
     } else {
       alert('더 이상 볼 수 있는 상품이 없습니다!!!');
@@ -145,7 +141,6 @@ class Product extends React.Component {
 
     const { products, dummyDescription, imageUrlQueryNumber } = this.state;
 
-    // console.log(this.props.location);
     return (
       <ProductPageWrapper>
         <DetailsWrapper>
@@ -174,7 +169,6 @@ class Product extends React.Component {
 }
 
 const ProductPageWrapper = styled.div`
-  /* max-width: 1200px; */
   width: 1024px;
   margin: 100px auto;
   box-shadow: 0 0 5px #ccc;
@@ -226,7 +220,6 @@ const DetailsContents = styled.div`
 const ContentTop = styled.div`
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: space-between; */
   margin-bottom: 15px;
 
   & > div {
@@ -254,7 +247,6 @@ const ContentTop = styled.div`
 const ContentBottom = styled.div`
   display: flex;
   justify-content: space-between;
-  /* margin-bottom: 15px; */
 `;
 
 const Button = styled.button`
