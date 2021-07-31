@@ -7,11 +7,15 @@ import styled from 'styled-components';
 
 class FilterBar extends Component {
   render() {
-    const { inquireData, onNotInterestClick, sortByFilter } = this.props;
-
+    const { inquireData, onNotInterestClick, sortByFilter, brandFilterList, selectedBrand, selectBrand } = this.props;
     return (
       <FilterContainer>
-        <BrandFilter inquireData={inquireData} />
+        <BrandFilter
+          inquireData={inquireData}
+          brandFilterList={brandFilterList}
+          selectedBrand={selectedBrand}
+          selectBrand={selectBrand}
+        />
         <NotInterestFilter onNotInterestClick={onNotInterestClick} />
         <SortingFilter sortByFilter={sortByFilter} />
       </FilterContainer>
@@ -26,7 +30,7 @@ const FilterContainer = styled.div`
   border-radius: 5px;
   display: flex;
   justify-content: space-around;
-  margin: 40px 0 30px 0;
+  margin: 40px 0 5px 0;
   padding: 16px 0;
 
   & > :nth-child(2n - 1) {
