@@ -23,7 +23,7 @@ class RecentList extends Component {
 
   componentDidMount() {
     const inquireList = Storage.get('recentList') || [];
-    const notInterestList = [1, 2];
+    const notInterestList = Storage.get('noInterest') || [];
 
     fetch('data/data.json')
       .then((res) => res.json())
