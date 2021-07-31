@@ -4,7 +4,7 @@
     "es2021": true,
     "node": true
   },
-  "extends": ["plugin:react/recommended", "airbnb", "plugin:prettier/recommended"],
+  "extends": ["plugin:react/recommended", "plugin:prettier/recommended"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -19,7 +19,10 @@
     "react/prop-types": 0,
     "react/jsx-props-no-spreading": 0,
     "react/destructuring-assignment": 0,
-    "no-useless-constructor": 0
+    "no-useless-constructor": 0,
+    "class-methods-use-this": 0,
+    "no-debugger": 0,
+    "react/no-did-update-set-state": 0
   },
   "settings": {
     "import/resolver": {
