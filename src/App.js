@@ -10,7 +10,20 @@ import GlobalStyles from 'styles/GlobalStyles';
 import Theme from 'styles/Theme';
 import Storage from 'utils/Storage';
 
+const LAST_SAVE_DATE_STORAGE_KEY = 'lastSaveDate';
+
 class App extends Component {
+  componentDidMount() {
+    const now = new Date();
+    const todayDate = now.getDate();
+    const nowTime = now.getTime();
+    const lastSaveDateObj = Storage.get(LAST_SAVE_DATE_STORAGE_KEY);
+
+    if (lastSaveDateObj && lastSaveDateObj.date < todayDate && lastSaveDateObj.timestamp < nowTime) {
+      Storage.clear();
+    }
+  }
+
   render() {
     const resetStorage = () => {
       const date = new Date();
