@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
@@ -8,10 +8,24 @@ import RecentList from 'pages/RecentList/RecentList';
 import GlobalNavbar from 'components/GlobalNavbar';
 import GlobalStyles from 'styles/GlobalStyles';
 import Theme from 'styles/Theme';
+import Storage from 'utils/Storage';
 
-function App() {
-  return (
-    <>
+class App extends Component {
+  render() {
+    const resetStorage = () => {
+      const date = new Date();
+      const min = date.getMinutes();
+      const hours = date.getHours();
+      const sec = date.getSeconds();
+
+      if (localStorage && min + hours + sec === 0) {
+        Storage.clear();
+      }
+    };
+
+    setInterval(resetStorage, 1000);
+
+    return (
       <Router>
         <Theme>
           <GlobalStyles />
@@ -25,8 +39,8 @@ function App() {
           </div>
         </Theme>
       </Router>
-    </>
-  );
+    );
+  }
 }
 
 export default App;

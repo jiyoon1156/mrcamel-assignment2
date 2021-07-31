@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ProductList from 'components/ProductList';
-import Storage from 'utils/Storage';
 
 const API = 'data/data.json';
 class Main extends Component {
@@ -18,24 +17,7 @@ class Main extends Component {
   render() {
     const { data } = this.state;
 
-    const resetStorage = () => {
-      const date = new Date();
-      const min = date.getMinutes();
-      const hours = date.getHours();
-      const sec = date.getSeconds();
-
-      if (localStorage && min + hours + sec === 0) {
-        Storage.clear();
-      }
-    };
-
-    setInterval(resetStorage, 1000);
-
-    return (
-      <>
-        <ProductList data={data} />
-      </>
-    );
+    return <ProductList data={data} />;
   }
 }
 

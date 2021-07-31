@@ -26,6 +26,9 @@ export default createGlobalStyle`
     vertical-align: baseline;
     word-break: keep-all;
   }
+  body::-webkit-scrollbar {
+    display: none;
+  }
 	a {
     color: inherit;
     text-decoration: none;
