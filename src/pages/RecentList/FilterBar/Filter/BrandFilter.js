@@ -1,29 +1,17 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-
+/* eslint-disable */
 class BrandFilter extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     date: false,
-  //   };
-  // }
-
-  // handleDrop = () => {
-  //   this.setState({
-  //     date: true,
-  //   });
-  //   console.log(date);
-  // };
   constructor() {
     super();
     this.state = {
-      isDroped: '',
+      isDroped: false,
     };
   }
 
   handleDrop = () => {
-    this.setState({ isDroped: !this.state.isDroped });
+    this.setState((prev) => ({ isDroped: !prev.isDroped }));
+    console.log(this.state.isDroped);
   };
 
   render() {
@@ -74,10 +62,11 @@ const OptionBox = styled.button`
 
 const BrandSelect = styled.div`
   position: absolute;
+  visibility: ${(props) => (props.isDrop ? 'visible' : 'hidden')};
 `;
 
 const DropList = styled.div`
-  display: ${(props) => (props.isDrop ? 'flex' : 'none')};
+  display: flex;
   justify-content: center;
   align-items: center;
   width: 150px;
