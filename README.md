@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+# Mr.Camel 기업과제
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 📺 데모
 
-## Available Scripts
+<!-- <p align="center">
+  <img width="600" src="https://user-images.githubusercontent.com/9590693/127138398-b1086d84-1bf5-45d4-8764-a4e2489064ec.gif" />
+</p> -->
 
-In the project directory, you can run:
+## 요구사항
 
-### `yarn start`
+### 팀원 별 구현 내용
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### ✔️Develop Period : 2021.07.29 ~ 2021.07.31
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+|Developer|💻What did I do|
+|:-:|:-:|
+|🙂[김명준](https://github.com/JOHNKIM-KK)|카테고리 페이지 기능 구현<br />상세페이지 UX/UI<br />메인 페이지 기능 구현 |
+|🙂[이지열](https://github.com/highspirit7)| 로그인/회원가입 기능 구현,<br />로그인/회원가입 UX/UI<br />데이터 베이스/라우터 연동 |
+|🙂[조성원](https://github.com/JSWww>)|장바구니 기능 구현<br />메인 페이지 기능 구현<br />메인 페이지 UX/UI |
+|🙂[허지윤](https://github.com/jiyoon1156) | 상세페이지 기능 구현<br />슬라이더 기능 구현<br />장바구니 UX/UI |
 
-### `yarn test`
+## 🛠 기술 스택
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=white"/></a> <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/></a> <img src="https://img.shields.io/badge/React_Router-CA4245?style=flat-square&logo=ReactRouter&logoColor=white"/></a> <img src="https://img.shields.io/badge/styled Components-DB7093?style=flat-square&logo=styled-components&logoColor=white"/></a> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"/></a>
 
-### `yarn build`
+## 👀 배포 링크
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[https://mrcamel-assignment2.netlify.app](https://mrcamel-assignment2.netlify.app)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## ⚙ Install & Run
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Install
 
-### `yarn eject`
+  ```bash
+  $npm install
+  ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Run
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  ```bash
+  $npm start
+  ```
