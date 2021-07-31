@@ -75,17 +75,12 @@ class RecentList extends Component {
     });
   }
 
-  deleteBtn(e) {
+  deleteBtn(brandName) {
     const { selectedBrand } = this.state;
-    let newArr = selectedBrand;
-    for (let i = 0; i < newArr.length; i++) {
-      if (newArr[i] === e.target.id) {
-        newArr.splice(i, 1);
-        i--;
-      }
-    }
+    const newArr = selectedBrand.slice();
+
     this.setState({
-      selectedBrand: newArr,
+      selectedBrand: newArr.filter((brand) => brand !== brandName),
     });
   }
 
@@ -106,7 +101,7 @@ class RecentList extends Component {
           <BrandContainer>
             <BrandBox>
               {selectedBrand.map((brand, idx) => (
-                <BrandBtn key={idx} id={brand} onClick={this.deleteBtn}>
+                <BrandBtn key={idx} onClick={() => this.deleteBtn(brand)}>
                   {brand} <i className="fas fa-times"></i>
                 </BrandBtn>
               ))}
@@ -115,7 +110,7 @@ class RecentList extends Component {
         )}
 
         <Title>상품 조회 리스트</Title>
-        <ProductList data={inquireData} notInterestChecked={notInterestChecked} />
+        <ProductList data={inquireData} notInterestChecked={notInterestChecked} selectedBrand={selectedBrand} />
       </Container>
     );
   }

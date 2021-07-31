@@ -17,7 +17,7 @@ class ProductList extends React.Component {
   }
 
   render() {
-    const { data, notInterestChecked } = this.props;
+    const { data, notInterestChecked, selectedBrand } = this.props;
     const accessDeniedItem = Storage.get('noInterest') || [];
 
     if (data.length === 0) {
@@ -28,6 +28,7 @@ class ProductList extends React.Component {
       <StyledShop>
         {data.map((item, index) => {
           if (notInterestChecked && item.notInterest) return null;
+          if (selectedBrand?.length && !selectedBrand.includes(item.brand)) return null;
 
           const id = item.id ?? index;
 
@@ -94,4 +95,5 @@ const Empty = styled.div`
   display: flex;
   justify-content: center;
 `;
+
 export default ProductList;
