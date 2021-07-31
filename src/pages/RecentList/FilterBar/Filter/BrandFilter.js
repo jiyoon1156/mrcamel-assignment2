@@ -7,31 +7,24 @@ class BrandFilter extends Component {
     this.state = {
       isDroped: false,
       brandDropList: [],
-      selectedBrand: [],
     };
   }
 
   componentDidUpdate(prevProps) {
-    const { inquireData } = this.props;
+    const { brandFilterList } = this.props;
     const { brandDropList } = this.state;
-    const brandArray = [];
-    if (prevProps.inquireData !== inquireData) {
-      inquireData.map((brand) => brandArray.push(brand.brand));
 
-      const uniqueArr = brandArray.filter((element, index) => {
-        return brandArray.indexOf(element) === index;
+    const brandArr = [];
+    if (prevProps.brandFilterList !== brandFilterList) {
+      brandFilterList.map((brand) => brandArr.push(brand.brand));
+
+      const uniqueArr = brandArr.filter((element, index) => {
+        return brandArr.indexOf(element) === index;
       });
 
       brandDropList.push(...uniqueArr);
     }
   }
-
-  selectBrand = (e) => {
-    const { selectedBrand } = this.state;
-    console.log(e.target.value);
-    selectedBrand.push(e.target.id);
-    console.log(selectedBrand);
-  };
 
   handleDrop = () => {
     this.setState((prev) => ({ isDroped: !prev.isDroped }));
@@ -47,7 +40,7 @@ class BrandFilter extends Component {
         </OptionBox>
         <BrandSelect isDrop={isDroped}>
           {brandDropList.map((brand, idx) => (
-            <DropList key={idx} value={brand} onClick={this.selectBrand}>
+            <DropList key={idx} id={brand} onClick={this.props.selectBrand}>
               {brand}
             </DropList>
           ))}
@@ -98,6 +91,10 @@ const DropList = styled.div`
   border: 1px solid #ededed;
   border-radius: 6px;
   background-color: #fff;
+
+  &:hover {
+    color: gray;
+  }
 `;
 
 export default BrandFilter;

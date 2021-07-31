@@ -61,8 +61,7 @@ const Button = styled.div`
   background-color: #fff;
   border-radius: 1px;
   cursor: pointer;
-  padding: 10px;
-  width: 140px;
+  padding: 10px 35px 10px 10px;
 `;
 
 const BoxList = styled.ul`

@@ -24,6 +24,7 @@ class ProductList extends Component {
       <ListContainer>
         {inquireData.map((item) => {
           if (notInterestChecked && item.notInterest) return null;
+
           return (
             <div key={item.title} onClick={() => this.handleClick(item)}>
               {item.id}/{item.title}/{item.price}원

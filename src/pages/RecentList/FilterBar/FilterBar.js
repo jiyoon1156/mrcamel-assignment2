@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import BrandFilter from 'pages/RecentList/FilterBar/Filter/BrandFilter';
 import NotInterestFilter from 'pages/RecentList/FilterBar/Filter/NotInterestFilter';
@@ -6,11 +7,15 @@ import styled from 'styled-components';
 
 class FilterBar extends Component {
   render() {
-    const { inquireData, onNotInterestClick, sortByFilter, brandFilterList } = this.props;
-    console.log(inquireData);
+    const { inquireData, onNotInterestClick, sortByFilter, brandFilterList, selectedBrand, selectBrand } = this.props;
     return (
       <FilterContainer>
-        <BrandFilter inquireData={inquireData} brandFilterList={brandFilterList} />
+        <BrandFilter
+          inquireData={inquireData}
+          brandFilterList={brandFilterList}
+          selectedBrand={selectedBrand}
+          selectBrand={selectBrand}
+        />
         <NotInterestFilter onNotInterestClick={onNotInterestClick} />
         <SortingFilter sortByFilter={sortByFilter} />
       </FilterContainer>
@@ -19,11 +24,18 @@ class FilterBar extends Component {
 }
 
 const FilterContainer = styled.div`
-  display: flex;
   align-items: center;
-  height: 80px;
-  margin-top: 60px;
-  border: 1px solid red;
+  align-self: center;
+  border: 2px solid #dcdcdc;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-around;
+  margin: 40px 0 5px 0;
+  padding: 16px 0;
+
+  & > :nth-child(2n - 1) {
+    margin: 0 40px;
+  }
 `;
 
 export default FilterBar;
