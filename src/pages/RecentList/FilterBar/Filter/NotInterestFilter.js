@@ -20,7 +20,7 @@ const Label = styled.label`
   cursor: pointer;
   display: block;
   position: relative;
-  padding-right: 26px;
+  padding: 0 28px 0 56px;
   user-select: none;
   white-space: nowrap;
 
@@ -52,11 +52,12 @@ const Input = styled.input`
 
 const Span = styled.span`
   border: 2px solid #a9a9a9;
-  border-radius: 10%;
+  border-radius: 2px;
   height: 24px;
   position: absolute;
   right: 0;
-  top: 0;
+  top: 50%;
+  transform: translateY(-50%);
   width: 24px;
 
   &:after {
