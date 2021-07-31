@@ -7,7 +7,16 @@ import styled from 'styled-components';
 
 class FilterBar extends Component {
   render() {
-    const { inquireData, onNotInterestClick, sortByFilter, brandFilterList, selectedBrand, selectBrand } = this.props;
+    const {
+      inquireData,
+      onNotInterestClick,
+      sortByFilter,
+      brandFilterList,
+      selectedBrand,
+      selectBrand,
+      isDroped,
+      handleDrop,
+    } = this.props;
     return (
       <FilterContainer>
         <BrandFilter
@@ -15,6 +24,8 @@ class FilterBar extends Component {
           brandFilterList={brandFilterList}
           selectedBrand={selectedBrand}
           selectBrand={selectBrand}
+          isDroped={isDroped}
+          handleDrop={handleDrop}
         />
         <NotInterestFilter onNotInterestClick={onNotInterestClick} />
         <SortingFilter sortByFilter={sortByFilter} />

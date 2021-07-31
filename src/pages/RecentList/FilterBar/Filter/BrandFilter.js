@@ -5,7 +5,6 @@ class BrandFilter extends Component {
   constructor() {
     super();
     this.state = {
-      isDroped: false,
       brandDropList: [],
     };
   }
@@ -26,16 +25,13 @@ class BrandFilter extends Component {
     }
   }
 
-  handleDrop = () => {
-    this.setState((prev) => ({ isDroped: !prev.isDroped }));
-  };
-
   render() {
-    const { isDroped, brandDropList } = this.state;
+    const { brandDropList } = this.state;
+    const { isDroped, handleDrop } = this.props;
 
     return (
       <BrandBox>
-        <OptionBox onClick={this.handleDrop}>
+        <OptionBox onClick={handleDrop}>
           <span>Brand</span> <i className="fas fa-sort-down" />
         </OptionBox>
         <BrandSelect isDrop={isDroped}>
@@ -72,6 +68,7 @@ const OptionBox = styled.button`
   }
 
   &:hover {
+    cursor: pointer;
     opacity: 0.7;
     color: gray;
   }
@@ -93,6 +90,8 @@ const DropList = styled.div`
   background-color: #fff;
 
   &:hover {
+    cursor: pointer;
+    background-color: #ededed;
     color: gray;
   }
 `;

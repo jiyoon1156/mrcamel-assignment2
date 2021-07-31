@@ -16,6 +16,7 @@ class RecentList extends Component {
       notInterestChecked: false,
       brandFilterList: [],
       selectedBrand: [],
+      isDroped: false,
     };
 
     this.onNotInterestClick = this.onNotInterestClick.bind(this);
@@ -53,6 +54,7 @@ class RecentList extends Component {
     arr.push(e.target.id);
     this.setState({
       selectedBrand: [...new Set(arr)],
+      isDroped: false,
     });
   };
 
@@ -75,6 +77,10 @@ class RecentList extends Component {
     });
   }
 
+  handleDrop = () => {
+    this.setState((prev) => ({ isDroped: !prev.isDroped }));
+  };
+
   deleteBtn(brandName) {
     const { selectedBrand } = this.state;
     const newArr = selectedBrand.slice();
@@ -85,7 +91,7 @@ class RecentList extends Component {
   }
 
   render() {
-    const { inquireData, notInterestChecked, brandFilterList, selectedBrand } = this.state;
+    const { inquireData, notInterestChecked, brandFilterList, selectedBrand, isDroped } = this.state;
 
     return (
       <Container>
@@ -96,6 +102,8 @@ class RecentList extends Component {
           selectBrand={this.selectBrand}
           onNotInterestClick={this.onNotInterestClick}
           sortByFilter={this.sortByFilter}
+          isDroped={isDroped}
+          handleDrop={this.handleDrop}
         />
         {selectedBrand.length !== 0 && (
           <BrandContainer>
