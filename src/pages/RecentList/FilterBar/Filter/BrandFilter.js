@@ -6,27 +6,51 @@ class BrandFilter extends Component {
     super();
     this.state = {
       isDroped: false,
+      brandDropList: [],
+      selectedBrand: [],
     };
   }
 
+  componentDidUpdate(prevProps) {
+    const { inquireData } = this.props;
+    const { brandDropList } = this.state;
+    const brandArray = [];
+    if (prevProps.inquireData !== inquireData) {
+      inquireData.map((brand) => brandArray.push(brand.brand));
+
+      const uniqueArr = brandArray.filter((element, index) => {
+        return brandArray.indexOf(element) === index;
+      });
+
+      brandDropList.push(...uniqueArr);
+    }
+  }
+
+  selectBrand = (e) => {
+    const { selectedBrand } = this.state;
+    console.log(e.target.value);
+    selectedBrand.push(e.target.id);
+    console.log(selectedBrand);
+  };
+
   handleDrop = () => {
     this.setState((prev) => ({ isDroped: !prev.isDroped }));
-    console.log(this.state.isDroped);
   };
 
   render() {
-    const { isDroped } = this.state;
+    const { isDroped, brandDropList } = this.state;
+
     return (
       <BrandBox>
         <OptionBox onClick={this.handleDrop}>
           <span>Brand</span> <i className="fas fa-sort-down" />
         </OptionBox>
         <BrandSelect isDrop={isDroped}>
-          <DropList>Nike</DropList>
-          <DropList>Nike</DropList>
-          <DropList>Nike</DropList>
-          <DropList>Nike</DropList>
-          <DropList>Nike</DropList>
+          {brandDropList.map((brand, idx) => (
+            <DropList key={idx} value={brand} onClick={this.selectBrand}>
+              {brand}
+            </DropList>
+          ))}
         </BrandSelect>
       </BrandBox>
     );

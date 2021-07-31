@@ -6,11 +6,11 @@ import styled from 'styled-components';
 
 class FilterBar extends Component {
   render() {
-    const { inquireData, onNotInterestClick, sortByFilter } = this.props;
-
+    const { inquireData, onNotInterestClick, sortByFilter, brandFilterList } = this.props;
+    console.log(inquireData);
     return (
       <FilterContainer>
-        <BrandFilter inquireData={inquireData} />
+        <BrandFilter inquireData={inquireData} brandFilterList={brandFilterList} />
         <NotInterestFilter onNotInterestClick={onNotInterestClick} />
         <SortingFilter sortByFilter={sortByFilter} />
       </FilterContainer>

@@ -15,6 +15,7 @@ class RecentList extends Component {
     this.state = {
       inquireData: [],
       notInterestChecked: false,
+      brandFilterList: [],
     };
 
     this.onNotInterestClick = this.onNotInterestClick.bind(this);
@@ -63,12 +64,13 @@ class RecentList extends Component {
   }
 
   render() {
-    const { inquireData, notInterestChecked } = this.state;
-
+    const { inquireData, notInterestChecked, brandFilterList } = this.state;
+    console.log(inquireData);
     return (
       <Container>
         <FilterBar
           inquireData={inquireData}
+          brandFilterList={brandFilterList}
           onNotInterestClick={this.onNotInterestClick}
           sortByFilter={this.sortByFilter}
         />
