@@ -8,6 +8,7 @@ const DATA_JSON_API = 'data/data.json';
 const PLACEHOLDER_POST_API = 'https://jsonplaceholder.typicode.com/posts/';
 const NO_INTEREST_STORAGE_KEY = 'noInterest';
 const RECENT_LIST_STORAGE_KEY = 'recentList';
+const LAST_SAVE_DATE_STORAGE_KEY = 'lastSaveDate';
 
 class Product extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class Product extends React.Component {
 
     this.handleClickNoInterest = this.handleClickNoInterest.bind(this);
     this.directToRandomProduct = this.directToRandomProduct.bind(this);
+    this.saveTimeOfStorage = this.saveTimeOfStorage.bind(this);
   }
 
   async componentDidMount() {
@@ -50,6 +52,8 @@ class Product extends React.Component {
     } else recentList.unshift(Number(index));
 
     Storage.set(RECENT_LIST_STORAGE_KEY, recentList);
+
+    this.saveTimeOfStorage();
   }
 
   async componentDidUpdate(prevProps) {
@@ -71,6 +75,16 @@ class Product extends React.Component {
     // console.log(`prev index : ${index}`);
   }
 
+  saveTimeOfStorage() {
+    const today = new Date();
+    const savingTimeData = {
+      timestamp: today.getTime(),
+      date: today.getDate(),
+    };
+
+    Storage.set(LAST_SAVE_DATE_STORAGE_KEY, savingTimeData);
+  }
+
   // 관심 없음 클릭용
   handleClickNoInterest(index) {
     const { history } = this.props;
@@ -86,7 +100,7 @@ class Product extends React.Component {
     }
 
     Storage.set(NO_INTEREST_STORAGE_KEY, noInterestList);
-
+    this.saveTimeOfStorage();
     this.directToRandomProduct(index);
   }
 
