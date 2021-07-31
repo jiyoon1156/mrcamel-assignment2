@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import styled from 'styled-components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Main from 'pages/Main/Main';
@@ -29,18 +29,24 @@ class App extends Component {
       <Router>
         <Theme>
           <GlobalStyles />
-          <GlobalNavbar />
-          <div>
+          <StyledContainer>
+            <GlobalNavbar />
+
             <Switch>
               <Route path="/product" component={Product} />
               <Route path="/recentList" component={RecentList} />
               <Route path="/" component={Main} />
             </Switch>
-          </div>
+          </StyledContainer>
         </Theme>
       </Router>
     );
   }
 }
+
+const StyledContainer = styled.div`
+  width: 100%;
+  height: 100vh;
+`;
 
 export default App;
