@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 
 import styled from 'styled-components';
@@ -5,36 +6,39 @@ import styled from 'styled-components';
 import FilterBar from 'pages/RecentList/FilterBar/FilterBar';
 import ProductList from 'pages/RecentList/ProductList/ProductList';
 
+import Storage from 'utils/Storage';
+
 class RecentList extends Component {
   constructor() {
     super();
 
     this.state = {
-      data: [],
+      inquireData: [],
       notInterestChecked: false,
     };
 
-    this.inquireData = [0, 1, 2, 3, 4, 5, 6, 12];
-    this.notInterestData = [0, 1, 2];
-
     this.onNotInterestClick = this.onNotInterestClick.bind(this);
+    this.sortByFilter = this.sortByFilter.bind(this);
   }
 
   componentDidMount() {
+    const inquireList = Storage.get('recentList') || [];
+    const notInterestList = [1, 2];
+
     fetch('data/data.json')
       .then((res) => res.json())
       .then((data) => {
-        const result = data
-          .filter((_, i) => this.inquireData.indexOf(i) !== -1)
-          .map((elem, i) => {
-            return {
-              ...elem,
-              notInterest: this.notInterestData.indexOf(i) !== -1,
-            };
-          });
+        const result = inquireList.map((id, order) => {
+          return {
+            id,
+            order,
+            ...data.find((_, i) => id === i),
+            notInterest: notInterestList.findIndex((i) => i === id) !== -1,
+          };
+        });
 
         this.setState({
-          data: result,
+          inquireData: result,
         });
       });
   }
@@ -47,13 +51,28 @@ class RecentList extends Component {
     });
   }
 
+  sortByFilter(sortingBoxIndex) {
+    const { inquireData } = this.state;
+    const filterMethods = ['order', 'price'];
+    const sortKey = filterMethods[sortingBoxIndex];
+    const sortedData = inquireData.slice().sort((a, b) => a[sortKey] - b[sortKey]);
+
+    this.setState({
+      inquireData: sortedData,
+    });
+  }
+
   render() {
-    const { data, notInterestChecked } = this.state;
+    const { inquireData, notInterestChecked } = this.state;
 
     return (
       <Container>
-        <FilterBar data={data} onNotInterestClick={this.onNotInterestClick} />
-        <ProductList data={data} notInterestChecked={notInterestChecked} />
+        <FilterBar
+          inquireData={inquireData}
+          onNotInterestClick={this.onNotInterestClick}
+          sortByFilter={this.sortByFilter}
+        />
+        <ProductList inquireData={inquireData} notInterestChecked={notInterestChecked} />
       </Container>
     );
   }
