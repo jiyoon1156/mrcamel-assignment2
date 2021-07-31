@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import qs from 'qs';
 
 import Storage from 'utils/Storage';
+import Spinner from 'components/Spinner';
+import { API_ENDPOINT } from 'constants/Constants';
 
-const DATA_JSON_API = 'data/data.json';
 const PLACEHOLDER_POST_API = 'https://jsonplaceholder.typicode.com/posts/';
 const NO_INTEREST_STORAGE_KEY = 'noInterest';
 const RECENT_LIST_STORAGE_KEY = 'recentList';
@@ -16,6 +17,7 @@ class Product extends React.Component {
     this.state = {
       products: [],
       dummyDescription: '',
+      isLoading: false,
       imageUrlQueryNumber: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER),
     };
 
@@ -31,7 +33,7 @@ class Product extends React.Component {
     });
 
     // product 데이터 받아와서 저장
-    const responseData = await fetch(DATA_JSON_API);
+    const responseData = await fetch(API_ENDPOINT);
     const jsonData = await responseData.json();
     this.setState({ products: jsonData });
 
@@ -112,6 +114,11 @@ class Product extends React.Component {
 
   // 랜덤 상품 조회용
   directToRandomProduct(index) {
+    this.setState({ isLoading: true });
+    setTimeout(() => {
+      this.setState({ isLoading: false });
+    }, 1000);
+
     const { history } = this.props;
     const noInterestList = Storage.get(NO_INTEREST_STORAGE_KEY) ? Storage.get(NO_INTEREST_STORAGE_KEY) : [];
 
@@ -123,7 +130,6 @@ class Product extends React.Component {
     const randomIndex = Math.floor(Math.random() * productsExceptNoInterest.length);
 
     // 다른 상품 페이지로 라우팅되면 이미지를 바꾸어주기 위함
-
     if (productsExceptNoInterest.length > 0) {
       this.setState({ imageUrlQueryNumber: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER) });
 
@@ -139,9 +145,13 @@ class Product extends React.Component {
       ignoreQueryPrefix: true,
     });
 
-    const { products, dummyDescription, imageUrlQueryNumber } = this.state;
+    const { products, dummyDescription, imageUrlQueryNumber, isLoading } = this.state;
 
-    return (
+    return isLoading ? (
+      <SpinnerWrapper>
+        <Spinner />
+      </SpinnerWrapper>
+    ) : (
       <ProductPageWrapper>
         <DetailsWrapper>
           <BigImg>
@@ -167,6 +177,20 @@ class Product extends React.Component {
     );
   }
 }
+
+const SpinnerWrapper = styled.div`
+  width: 1024px;
+  min-height: 312px;
+  margin: 100px auto;
+  box-shadow: 0 0 5px #ccc;
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const ProductPageWrapper = styled.div`
   width: 1024px;
