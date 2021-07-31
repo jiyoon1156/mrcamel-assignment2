@@ -45,10 +45,12 @@ class SortingFilter extends Component {
 }
 
 const SelectBox = styled.div`
-  border-radius: 1px;
-  box-shadow: 0 1px 2px 0 #808080;
+  margin-right: 45px;
+  border-radius: 6px;
+  box-shadow: 0 5px 10px 0 rgb(0 0 0 / 10%);
   position: relative;
   user-select: none;
+  font-weight: 700;
 
   & > :first-child:after {
     content: '${({ isOpen }) => (isOpen ? '▲' : '▼')}';
@@ -59,14 +61,15 @@ const SelectBox = styled.div`
 
 const Button = styled.div`
   background-color: #fff;
-  border-radius: 1px;
+  border-radius: 6px;
   cursor: pointer;
   padding: 10px 35px 10px 10px;
+  color: #333333;
+  font-size: 15px;
 `;
 
 const BoxList = styled.ul`
   border-top: 1px solid #dcdcdc;
-  border-radius: 1px;
   box-shadow: 0 1px 2px 0 #808080;
   display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
   left: 0px;
@@ -77,7 +80,7 @@ const BoxList = styled.ul`
   }
 
   & > :nth-child(${({ selected }) => selected + 1}) {
-    color: red;
+    color: #2396f3;
   }
 `;
 

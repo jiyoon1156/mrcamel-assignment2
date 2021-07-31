@@ -32,7 +32,7 @@ class BrandFilter extends Component {
     return (
       <BrandBox>
         <OptionBox onClick={handleDrop}>
-          <span>Brand</span> <i className="fas fa-sort-down" />
+          <span>브랜드</span> {isDroped ? <i className="fas fa-sort-up" /> : <i className="fas fa-sort-down" />}
         </OptionBox>
         <BrandSelect isDrop={isDroped}>
           {brandDropList.map((brand, idx) => (
@@ -61,10 +61,16 @@ const OptionBox = styled.button`
 
   span {
     margin-right: 10px;
+    font-weight: 700;
+    font-size: 15px;
   }
 
-  i {
+  .fa-sort-down {
     padding-bottom: 7px;
+  }
+
+  .fa-sort-up {
+    padding-top: 7px;
   }
 
   &:hover {
@@ -77,6 +83,7 @@ const OptionBox = styled.button`
 const BrandSelect = styled.div`
   position: absolute;
   visibility: ${(props) => (props.isDrop ? 'visible' : 'hidden')};
+  border: 1px solid #ededed;
 `;
 
 const DropList = styled.div`
@@ -84,15 +91,16 @@ const DropList = styled.div`
   justify-content: center;
   align-items: center;
   width: 150px;
-  height: 40px;
-  border: 1px solid #ededed;
-  border-radius: 6px;
+  padding: 10px 0;
   background-color: #fff;
+  color: lightgray;
+  font-weight: 700;
+  font-size: 15px;
 
   &:hover {
     cursor: pointer;
     background-color: #ededed;
-    color: gray;
+    color: #333333;
   }
 `;
 
