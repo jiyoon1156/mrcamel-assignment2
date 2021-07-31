@@ -76,7 +76,15 @@ class Product extends React.Component {
     const { history } = this.props;
     const noInterestList = Storage.get(NO_INTEREST_STORAGE_KEY) ? Storage.get(NO_INTEREST_STORAGE_KEY) : [];
 
-    noInterestList.unshift(Number(index));
+    /**
+     * 관심 없음 리스트에 추가되어 있지 않은 경우에만 추가하도록 처리
+     * 물론 메인 페이지에서 관심 없음 리스트에 있으면 애초에 라우팅 되지 않도록 처리하여
+     * 사실상 꼭 필요한 로직은 아니지만 안정성을 위해 추가함
+     */
+    if (noInterestList.indexOf(Number(index) === -1)) {
+      noInterestList.unshift(Number(index));
+    }
+
     Storage.set(NO_INTEREST_STORAGE_KEY, noInterestList);
 
     this.directToRandomProduct(index);
