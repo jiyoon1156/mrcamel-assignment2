@@ -22,6 +22,7 @@ class Product extends React.Component {
     this.handleClickNoInterest = this.handleClickNoInterest.bind(this);
     this.directToRandomProduct = this.directToRandomProduct.bind(this);
     this.saveTimeOfStorage = this.saveTimeOfStorage.bind(this);
+    this.saveForRecentList = this.saveForRecentList.bind(this);
   }
 
   async componentDidMount() {
@@ -40,19 +41,7 @@ class Product extends React.Component {
     const jsonPlaceholderPost = await responsePlaceholderPost.json();
     this.setState({ dummyDescription: jsonPlaceholderPost?.body });
 
-    const recentList = Storage.get(RECENT_LIST_STORAGE_KEY) ? Storage.get(RECENT_LIST_STORAGE_KEY) : [];
-
-    // 이미 본 상품 또 클릭했을 경우
-    if (recentList.indexOf(Number(index)) > -1) {
-      const alreadyExistingIndex = recentList.indexOf(Number(index));
-      const clickedProduct = recentList[alreadyExistingIndex];
-      recentList.splice(alreadyExistingIndex, 1);
-
-      recentList.unshift(clickedProduct);
-    } else recentList.unshift(Number(index));
-
-    Storage.set(RECENT_LIST_STORAGE_KEY, recentList);
-
+    this.saveForRecentList(index);
     this.saveTimeOfStorage();
   }
 
@@ -71,6 +60,10 @@ class Product extends React.Component {
       const jsonPlaceholderPost = await responsePlaceholderPost.json();
 
       this.setState({ dummyDescription: jsonPlaceholderPost?.body });
+
+      // 상품 상세페이지 내에서 랜덤으로 상품 로드 시에도 로컬스토리지에 데이터 저장
+      this.saveForRecentList(index);
+      this.saveTimeOfStorage();
     }
     // console.log(`prev index : ${index}`);
   }
@@ -83,6 +76,21 @@ class Product extends React.Component {
     };
 
     Storage.set(LAST_SAVE_DATE_STORAGE_KEY, savingTimeData);
+  }
+
+  saveForRecentList(index) {
+    const recentList = Storage.get(RECENT_LIST_STORAGE_KEY) ? Storage.get(RECENT_LIST_STORAGE_KEY) : [];
+
+    // 이미 본 상품 또 클릭했을 경우
+    if (recentList.indexOf(Number(index)) > -1) {
+      const alreadyExistingIndex = recentList.indexOf(Number(index));
+      const clickedProduct = recentList[alreadyExistingIndex];
+      recentList.splice(alreadyExistingIndex, 1);
+
+      recentList.unshift(clickedProduct);
+    } else recentList.unshift(Number(index));
+
+    Storage.set(RECENT_LIST_STORAGE_KEY, recentList);
   }
 
   // 관심 없음 클릭용
@@ -114,12 +122,20 @@ class Product extends React.Component {
 
     // 관심 없는 상품 제외하고 랜덤 라우팅
     const productsExceptNoInterest = [...Array(100).keys()].filter((elem) => noInterestList.indexOf(elem) === -1);
-    const randomIndex = productsExceptNoInterest[Math.floor(Math.random() * productsExceptNoInterest.length)];
-
+    const randomIndex = Math.floor(Math.random() * productsExceptNoInterest.length);
+    // console.log('-----------');
+    // console.log(`randomIndex : ${randomIndex}`);
+    // console.log(productsExceptNoInterest);
     // 다른 상품 페이지로 라우팅되면 이미지를 바꾸어주기 위함
-    this.setState({ imageUrlQueryNumber: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER) });
 
-    history.replace(`/product?index=${productsExceptNoInterest[randomIndex]}`);
+    if (productsExceptNoInterest.length > 0) {
+      this.setState({ imageUrlQueryNumber: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER) });
+      // console.log(`random product : ${productsExceptNoInterest[randomIndex]}`);
+      history.replace(`/product?index=${productsExceptNoInterest[randomIndex]}`);
+    } else {
+      alert('더 이상 볼 수 있는 상품이 없습니다!!!');
+      history.replace('/');
+    }
   }
 
   render() {
@@ -148,7 +164,7 @@ class Product extends React.Component {
 
             <ContentBottom>
               <Button onClick={() => this.handleClickNoInterest(index)}>관심 없음</Button>
-              <Button onClick={() => this.directToRandomProduct()}>랜덤 상품 조회</Button>
+              <Button onClick={() => this.directToRandomProduct(index)}>랜덤 상품 조회</Button>
             </ContentBottom>
           </DetailsContents>
         </DetailsWrapper>
