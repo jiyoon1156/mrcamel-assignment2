@@ -12,7 +12,7 @@ class RecentList extends Component {
     super();
 
     this.state = {
-      inquireData: [],
+      inquireData: null,
       notInterestChecked: false,
       brandFilterList: [],
       selectedBrand: [],
@@ -68,6 +68,9 @@ class RecentList extends Component {
 
   sortByFilter(sortingBoxIndex) {
     const { inquireData } = this.state;
+
+    if (!inquireData) return;
+
     const filterMethods = ['order', 'price'];
     const sortKey = filterMethods[sortingBoxIndex];
     const sortedData = inquireData.slice().sort((a, b) => a[sortKey] - b[sortKey]);
@@ -96,7 +99,6 @@ class RecentList extends Component {
     return (
       <Container>
         <FilterBar
-          inquireData={inquireData}
           brandFilterList={brandFilterList}
           selectedBrand={selectedBrand}
           selectBrand={this.selectBrand}

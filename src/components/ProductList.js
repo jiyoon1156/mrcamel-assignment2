@@ -20,6 +20,8 @@ class ProductList extends React.Component {
     const { data, notInterestChecked, selectedBrand } = this.props;
     const accessDeniedItem = Storage.get('noInterest') || [];
 
+    if (!data) return null;
+
     if (data.length === 0) {
       return <Empty>조회 이력이 없습니다.</Empty>;
     }
