@@ -40,7 +40,7 @@ class ProductList extends React.Component {
               </StyledTitle>
             </StyledProductsNonLink>
           ) : (
-            <StyledProducts key={item.title} to={`/product?index=${index}`}>
+            <StyledProducts key={item.title} to={`/product?index=${id}`}>
               <StyledTitle>
                 {item.title}
                 <br />
