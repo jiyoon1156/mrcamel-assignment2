@@ -15,7 +15,7 @@
 |Developer|💻What did I do|
 |:-:|:-:|
 |🙂[김명준](https://github.com/JOHNKIM-KK)|카테고리 페이지 기능 구현<br />상세페이지 UX/UI<br />메인 페이지 기능 구현 |
-|🙂[이지열](https://github.com/highspirit7)| 로그인/회원가입 기능 구현,<br />로그인/회원가입 UX/UI<br />데이터 베이스/라우터 연동 |
+|🙂[이지열](https://github.com/highspirit7)| Gnb 제작 및 상품 상세페이지 구현<br />상품 조회 이력 및 관심없는 상품 로컬 스토리지 저장<br />최초 라우팅 세팅 및 로컬스토리지 초기화 |
 |🙂[조성원](https://github.com/JSWww>)|장바구니 기능 구현<br />메인 페이지 기능 구현<br />메인 페이지 UX/UI |
 |🙂[허지윤](https://github.com/jiyoon1156) | 상세페이지 기능 구현<br />슬라이더 기능 구현<br />장바구니 UX/UI |
 
