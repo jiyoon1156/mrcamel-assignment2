@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import FilterBar from 'pages/RecentList/FilterBar/FilterBar';
-import ProductList from 'pages/RecentList/ProductList/ProductList';
+import ProductList from 'components/ProductList';
 
 import Storage from 'utils/Storage';
 
@@ -72,7 +72,7 @@ class RecentList extends Component {
           sortByFilter={this.sortByFilter}
         />
         <Title>상품 조회 리스트</Title>
-        <ProductList inquireData={inquireData} notInterestChecked={notInterestChecked} />
+        <ProductList data={inquireData} notInterestChecked={notInterestChecked} />
       </Container>
     );
   }

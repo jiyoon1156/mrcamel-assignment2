@@ -17,13 +17,21 @@ class ProductList extends React.Component {
   }
 
   render() {
-    const { data } = this.props;
-    const accessDeniedItem = Storage.get('noInterest');
+    const { data, notInterestChecked } = this.props;
+    const accessDeniedItem = Storage.get('noInterest') || [];
+
+    if (data.length === 0) {
+      return <Empty>조회 이력이 없습니다.</Empty>;
+    }
 
     return (
       <StyledShop>
-        {data.map((item, index) =>
-          accessDeniedItem.includes(index) ? (
+        {data.map((item, index) => {
+          if (notInterestChecked && item.notInterest) return null;
+
+          const id = item.id ?? index;
+
+          return accessDeniedItem.includes(id) ? (
             <StyledProductsNonLink key={item.title} onClick={this.handleClick}>
               <StyledTitle>
                 {item.title}
@@ -39,8 +47,8 @@ class ProductList extends React.Component {
                 {item.price}원
               </StyledTitle>
             </StyledProducts>
-          ),
-        )}
+          );
+        })}
       </StyledShop>
     );
   }
@@ -82,4 +90,8 @@ const StyledTitle = styled.div`
   padding: 1rem;
 `;
 
+const Empty = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 export default ProductList;
