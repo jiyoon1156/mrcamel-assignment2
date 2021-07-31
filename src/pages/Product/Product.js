@@ -26,7 +26,6 @@ class Product extends React.Component {
   }
 
   async componentDidMount() {
-    // console.log('componentDidMount');
     const { index } = qs.parse(this.props.location.search, {
       ignoreQueryPrefix: true,
     });
@@ -39,7 +38,7 @@ class Product extends React.Component {
     // 상품 설명용 placeholder 데이터 받아와서 저장
     const responsePlaceholderPost = await fetch(`${PLACEHOLDER_POST_API}${Number(index) + 1}`);
     const jsonPlaceholderPost = await responsePlaceholderPost.json();
-    this.setState({ dummyDescription: jsonPlaceholderPost?.body });
+    this.setState({ dummyDescription: jsonPlaceholderPost?.body ? jsonPlaceholderPost.body : '' });
 
     this.saveForRecentList(index);
     this.saveTimeOfStorage();
@@ -59,13 +58,12 @@ class Product extends React.Component {
       const responsePlaceholderPost = await fetch(`${PLACEHOLDER_POST_API}${Number(index) + 1}`);
       const jsonPlaceholderPost = await responsePlaceholderPost.json();
 
-      this.setState({ dummyDescription: jsonPlaceholderPost?.body });
+      this.setState({ dummyDescription: jsonPlaceholderPost?.body ? jsonPlaceholderPost.body : '' });
 
       // 상품 상세페이지 내에서 랜덤으로 상품 로드 시에도 로컬스토리지에 데이터 저장
       this.saveForRecentList(index);
       this.saveTimeOfStorage();
     }
-    // console.log(`prev index : ${index}`);
   }
 
   saveTimeOfStorage() {
@@ -123,14 +121,12 @@ class Product extends React.Component {
     // 관심 없는 상품 제외하고 랜덤 라우팅
     const productsExceptNoInterest = [...Array(100).keys()].filter((elem) => noInterestList.indexOf(elem) === -1);
     const randomIndex = Math.floor(Math.random() * productsExceptNoInterest.length);
-    // console.log('-----------');
-    // console.log(`randomIndex : ${randomIndex}`);
-    // console.log(productsExceptNoInterest);
+
     // 다른 상품 페이지로 라우팅되면 이미지를 바꾸어주기 위함
 
     if (productsExceptNoInterest.length > 0) {
       this.setState({ imageUrlQueryNumber: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER) });
-      // console.log(`random product : ${productsExceptNoInterest[randomIndex]}`);
+
       history.replace(`/product?index=${productsExceptNoInterest[randomIndex]}`);
     } else {
       alert('더 이상 볼 수 있는 상품이 없습니다!!!');
@@ -145,7 +141,6 @@ class Product extends React.Component {
 
     const { products, dummyDescription, imageUrlQueryNumber } = this.state;
 
-    // console.log(this.props.location);
     return (
       <ProductPageWrapper>
         <DetailsWrapper>
@@ -156,8 +151,8 @@ class Product extends React.Component {
           <DetailsContents>
             <ContentTop>
               <div>
-                <h2>{products[Number(index)]?.title}</h2>
-                <span>{`${products[Number(index)]?.price}원`}</span>
+                <h2>{products[Number(index)]?.title ? `${products[Number(index)]?.title}` : ''}</h2>
+                <span>{products[Number(index)]?.price ? `${products[Number(index)]?.price}원` : ''}</span>
               </div>
               <p>{dummyDescription}</p>
             </ContentTop>
@@ -174,7 +169,6 @@ class Product extends React.Component {
 }
 
 const ProductPageWrapper = styled.div`
-  /* max-width: 1200px; */
   width: 1024px;
   margin: 100px auto;
   box-shadow: 0 0 5px #ccc;
@@ -226,7 +220,6 @@ const DetailsContents = styled.div`
 const ContentTop = styled.div`
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: space-between; */
   margin-bottom: 15px;
 
   & > div {
@@ -254,7 +247,6 @@ const ContentTop = styled.div`
 const ContentBottom = styled.div`
   display: flex;
   justify-content: space-between;
-  /* margin-bottom: 15px; */
 `;
 
 const Button = styled.button`
