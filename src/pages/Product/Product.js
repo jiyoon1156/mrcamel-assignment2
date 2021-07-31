@@ -39,7 +39,7 @@ class Product extends React.Component {
     // 상품 설명용 placeholder 데이터 받아와서 저장
     const responsePlaceholderPost = await fetch(`${PLACEHOLDER_POST_API}${Number(index) + 1}`);
     const jsonPlaceholderPost = await responsePlaceholderPost.json();
-    this.setState({ dummyDescription: jsonPlaceholderPost?.body });
+    this.setState({ dummyDescription: jsonPlaceholderPost?.body ? jsonPlaceholderPost.body : '' });
 
     this.saveForRecentList(index);
     this.saveTimeOfStorage();
@@ -59,7 +59,7 @@ class Product extends React.Component {
       const responsePlaceholderPost = await fetch(`${PLACEHOLDER_POST_API}${Number(index) + 1}`);
       const jsonPlaceholderPost = await responsePlaceholderPost.json();
 
-      this.setState({ dummyDescription: jsonPlaceholderPost?.body });
+      this.setState({ dummyDescription: jsonPlaceholderPost?.body ? jsonPlaceholderPost.body : '' });
 
       // 상품 상세페이지 내에서 랜덤으로 상품 로드 시에도 로컬스토리지에 데이터 저장
       this.saveForRecentList(index);
@@ -156,8 +156,8 @@ class Product extends React.Component {
           <DetailsContents>
             <ContentTop>
               <div>
-                <h2>{products[Number(index)]?.title}</h2>
-                <span>{`${products[Number(index)]?.price}원`}</span>
+                <h2>{products[Number(index)]?.title ? `${products[Number(index)]?.title}` : ''}</h2>
+                <span>{products[Number(index)]?.price ? `${products[Number(index)]?.price}원` : ''}</span>
               </div>
               <p>{dummyDescription}</p>
             </ContentTop>
