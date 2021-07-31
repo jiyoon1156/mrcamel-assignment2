@@ -19,7 +19,6 @@ const Storage = {
       return localStorage[key];
     }
   },
-  // eslint-disable-next-line consistent-return
   remove: (key) => {
     if (!localStorage) return null;
 

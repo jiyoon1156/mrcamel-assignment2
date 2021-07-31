@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
@@ -6,6 +5,7 @@ import FilterBar from 'pages/RecentList/FilterBar/FilterBar';
 import ProductList from 'components/ProductList';
 
 import Storage from 'utils/Storage';
+import Constants from 'constants/Constants';
 
 class RecentList extends Component {
   constructor() {
@@ -22,13 +22,15 @@ class RecentList extends Component {
     this.onNotInterestClick = this.onNotInterestClick.bind(this);
     this.sortByFilter = this.sortByFilter.bind(this);
     this.deleteBtn = this.deleteBtn.bind(this);
+    this.selectBrand = this.selectBrand.bind(this);
+    this.handleDrop = this.handleDrop.bind(this);
   }
 
   componentDidMount() {
-    const inquireList = Storage.get('recentList') || [];
-    const notInterestList = Storage.get('noInterest') || [];
+    const inquireList = Storage.get(Constants.RECENT_LIST_STORAGE_KEY) || [];
+    const notInterestList = Storage.get(Constants.NO_INTEREST_STORAGE_KEY) || [];
 
-    fetch('data/data.json')
+    fetch(Constants.DATA_API)
       .then((res) => res.json())
       .then((data) => {
         const result = inquireList.map((id, order) => {
@@ -47,7 +49,7 @@ class RecentList extends Component {
       });
   }
 
-  selectBrand = (e) => {
+  selectBrand(e) {
     const { selectedBrand } = this.state;
     selectedBrand.push(e.target.id);
     const arr = selectedBrand;
@@ -56,7 +58,7 @@ class RecentList extends Component {
       selectedBrand: [...new Set(arr)],
       isDroped: false,
     });
-  };
+  }
 
   onNotInterestClick() {
     const { notInterestChecked } = this.state;
@@ -80,9 +82,9 @@ class RecentList extends Component {
     });
   }
 
-  handleDrop = () => {
+  handleDrop() {
     this.setState((prev) => ({ isDroped: !prev.isDroped }));
-  };
+  }
 
   deleteBtn(brandName) {
     const { selectedBrand } = this.state;

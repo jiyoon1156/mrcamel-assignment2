@@ -1,6 +1,4 @@
-/* eslint-disable */
 import React, { Component } from 'react';
-
 import styled from 'styled-components';
 
 const selectBoxList = ['최근 조회 순', '낮은 가격 순'];

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-/* eslint-disable */
 class BrandFilter extends Component {
   constructor() {
     super();

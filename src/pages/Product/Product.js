@@ -1,17 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import qs from 'qs';
 
 import Storage from 'utils/Storage';
 import Spinner from 'components/Spinner';
-import { API_ENDPOINT } from 'constants/Constants';
-
-const PLACEHOLDER_POST_API = 'https://jsonplaceholder.typicode.com/posts/';
-const NO_INTEREST_STORAGE_KEY = 'noInterest';
-const RECENT_LIST_STORAGE_KEY = 'recentList';
-const LAST_SAVE_DATE_STORAGE_KEY = 'lastSaveDate';
-
-class Product extends React.Component {
+import Constants from 'constants/Constants';
+class Product extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,12 +27,12 @@ class Product extends React.Component {
     });
 
     // product 데이터 받아와서 저장
-    const responseData = await fetch(API_ENDPOINT);
+    const responseData = await fetch(Constants.DATA_API);
     const jsonData = await responseData.json();
     this.setState({ products: jsonData });
 
     // 상품 설명용 placeholder 데이터 받아와서 저장
-    const responsePlaceholderPost = await fetch(`${PLACEHOLDER_POST_API}${Number(index) + 1}`);
+    const responsePlaceholderPost = await fetch(`${Constants.PLACEHOLDER_POST_API}${Number(index) + 1}`);
     const jsonPlaceholderPost = await responsePlaceholderPost.json();
     this.setState({ dummyDescription: jsonPlaceholderPost?.body ? jsonPlaceholderPost.body : '' });
 
@@ -57,7 +51,7 @@ class Product extends React.Component {
 
     if (prevIndex !== index) {
       // 상품 설명용 placeholder 데이터 업데이트
-      const responsePlaceholderPost = await fetch(`${PLACEHOLDER_POST_API}${Number(index) + 1}`);
+      const responsePlaceholderPost = await fetch(`${Constants.PLACEHOLDER_POST_API}${Number(index) + 1}`);
       const jsonPlaceholderPost = await responsePlaceholderPost.json();
 
       this.setState({ dummyDescription: jsonPlaceholderPost?.body ? jsonPlaceholderPost.body : '' });
@@ -75,11 +69,13 @@ class Product extends React.Component {
       date: today.getDate(),
     };
 
-    Storage.set(LAST_SAVE_DATE_STORAGE_KEY, savingTimeData);
+    Storage.set(Constants.LAST_SAVE_DATE_STORAGE_KEY, savingTimeData);
   }
 
   saveForRecentList(index) {
-    const recentList = Storage.get(RECENT_LIST_STORAGE_KEY) ? Storage.get(RECENT_LIST_STORAGE_KEY) : [];
+    const recentList = Storage.get(Constants.RECENT_LIST_STORAGE_KEY)
+      ? Storage.get(Constants.RECENT_LIST_STORAGE_KEY)
+      : [];
 
     // 이미 본 상품 또 클릭했을 경우
     if (recentList.indexOf(Number(index)) > -1) {
@@ -90,13 +86,15 @@ class Product extends React.Component {
       recentList.unshift(clickedProduct);
     } else recentList.unshift(Number(index));
 
-    Storage.set(RECENT_LIST_STORAGE_KEY, recentList);
+    Storage.set(Constants.RECENT_LIST_STORAGE_KEY, recentList);
   }
 
   // 관심 없음 클릭용
   handleClickNoInterest(index) {
     const { history } = this.props;
-    const noInterestList = Storage.get(NO_INTEREST_STORAGE_KEY) ? Storage.get(NO_INTEREST_STORAGE_KEY) : [];
+    const noInterestList = Storage.get(Constants.NO_INTEREST_STORAGE_KEY)
+      ? Storage.get(Constants.NO_INTEREST_STORAGE_KEY)
+      : [];
 
     /**
      * 관심 없음 리스트에 추가되어 있지 않은 경우에만 추가하도록 처리
@@ -107,7 +105,7 @@ class Product extends React.Component {
       noInterestList.unshift(Number(index));
     }
 
-    Storage.set(NO_INTEREST_STORAGE_KEY, noInterestList);
+    Storage.set(Constants.NO_INTEREST_STORAGE_KEY, noInterestList);
     this.saveTimeOfStorage();
     this.directToRandomProduct(index);
   }
@@ -120,7 +118,9 @@ class Product extends React.Component {
     }, 1000);
 
     const { history } = this.props;
-    const noInterestList = Storage.get(NO_INTEREST_STORAGE_KEY) ? Storage.get(NO_INTEREST_STORAGE_KEY) : [];
+    const noInterestList = Storage.get(Constants.NO_INTEREST_STORAGE_KEY)
+      ? Storage.get(Constants.NO_INTEREST_STORAGE_KEY)
+      : [];
 
     // 다시 현재 상품으로 라우팅되지 않게 하기 위해 현 상품 index도 추가
     noInterestList.unshift(Number(index));

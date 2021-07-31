@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link as ReactRouterDomLink } from 'react-router-dom';
 
-class GlobalNavbar extends React.Component {
+class GlobalNavbar extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       isOpen: false,
     };
@@ -24,7 +25,7 @@ class GlobalNavbar extends React.Component {
           <span />
         </Hamburger>
         <Menu isOpen={isOpen}>
-          <MenuLink to="/recentList">상품조회 이력</MenuLink>
+          <MenuLink to="/recentList">상품조회이력</MenuLink>
         </Menu>
       </Nav>
     );
@@ -40,11 +41,11 @@ const MenuLink = styled(Link)`
   cursor: pointer;
   text-align: center;
   text-decoration: none;
-  color: #67bc98;
+  color: ${({ theme }) => theme.color.light};
   transition: all 0.3s ease-in;
   font-size: 1rem;
   &:hover {
-    color: #7b7fda;
+    color: ${({ theme }) => theme.color.dark};
   }
 `;
 
@@ -55,11 +56,7 @@ const Nav = styled.div`
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  background: #1f29f0;
-  /* position: absolute;
-  top: 0;
-  left: 0;
-  right: 0; */
+  background: ${({ theme }) => theme.color.primary};
 `;
 
 const Logo = styled(Link)`
@@ -95,7 +92,7 @@ const Hamburger = styled.div`
   span {
     height: 2px;
     width: 25px;
-    background: #7b7fda;
+    background: ${({ theme }) => theme.color.dark};
     margin-bottom: 4px;
     border-radius: 5px;
   }

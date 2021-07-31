@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import ProductList from 'components/ProductList';
 
-const API = 'data/data.json';
+import ProductList from 'components/ProductList';
+import Constants from 'constants/Constants';
 
 class Main extends Component {
   constructor() {
@@ -13,7 +13,7 @@ class Main extends Component {
   }
 
   async componentDidMount() {
-    const response = await fetch(API);
+    const response = await fetch(Constants.DATA_API);
     const json = await response.json();
     this.setState({ data: json });
   }

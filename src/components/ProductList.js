@@ -1,24 +1,24 @@
-/* eslint-disable react/prop-types */
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import Storage from 'utils/Storage';
 
-class ProductList extends React.Component {
+import Storage from 'utils/Storage';
+import Constants from 'constants/Constants';
+
+class ProductList extends Component {
   constructor(props) {
     super(props);
+
     this.handleClick = this.handleClick.bind(this);
   }
 
-  // eslint-disable-next-line class-methods-use-this
   handleClick() {
-    // eslint-disable-next-line no-alert
-    alert('관심없는 상품입니다!!');
+    alert('관심없음으로 설정하신 상품입니다.');
   }
 
   render() {
     const { data, notInterestChecked, selectedBrand } = this.props;
-    const accessDeniedItem = Storage.get('noInterest') || [];
+    const accessDeniedItem = Storage.get(Constants.NO_INTEREST_STORAGE_KEY) || [];
 
     if (!data) return null;
 
