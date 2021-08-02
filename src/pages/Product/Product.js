@@ -65,8 +65,9 @@ class Product extends Component {
   saveTimeOfStorage() {
     const today = new Date();
     const savingTimeData = {
-      timestamp: today.getTime(),
-      date: today.getDate(),
+      year: today.getFullYear(),
+      month: today.getMonth(),
+      day: today.getDate(),
     };
 
     Storage.set(Constants.LAST_SAVE_DATE_STORAGE_KEY, savingTimeData);

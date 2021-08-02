@@ -14,12 +14,16 @@ import Constants from 'constants/Constants';
 class App extends Component {
   componentDidMount() {
     const now = new Date();
-    const todayDate = now.getDate();
-    const nowTime = now.getTime();
-    const lastSaveDateObj = Storage.get(Constants.LAST_SAVE_DATE_STORAGE_KEY);
+    const lastSaveDate = Storage.get(Constants.LAST_SAVE_DATE_STORAGE_KEY);
 
-    if (lastSaveDateObj && lastSaveDateObj.date < todayDate && lastSaveDateObj.timestamp < nowTime) {
-      Storage.clear();
+    if (lastSaveDate !== null) {
+      if (
+        lastSaveDate.year < now.getFullYear() ||
+        lastSaveDate.month < now.getMonth() ||
+        lastSaveDate.day < now.getDate()
+      ) {
+        Storage.clear();
+      }
     }
   }
 
